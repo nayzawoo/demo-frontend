@@ -11,7 +11,7 @@ try {
     Inertia = null;
 }
 
-export default function Welcome() {
+export default function Home() {
     return (
         <>
             <div className="mb-4 flex w-full justify-end">

@@ -10,6 +10,41 @@ type CartItem = {
     sku?: string;
 };
 
+type Crumb = { href?: string; label: string };
+
+export function Breadcrumbs({ items }: { items?: Crumb[] }) {
+    const crumbs: Crumb[] = items ?? [{ href: '/', label: 'Home' }, { label: 'Cart' }];
+
+    return (
+        <nav aria-label="Breadcrumb" style={{ marginBottom: 12 }}>
+            <ol
+                style={{
+                    display: 'flex',
+                    gap: 8,
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0,
+                    alignItems: 'center',
+                    color: '#6b7280',
+                    fontSize: 13,
+                }}
+            >
+                {crumbs.map((c, i) => (
+                    <li key={i} style={{ display: 'flex', alignItems: 'center' }}>
+                        {i > 0 && <span style={{ margin: '0 8px', color: '#e5e7eb' }}>/</span>}
+                        {c.href ? (
+                            <a href={c.href} style={{ color: '#6b7280', textDecoration: 'none' }}>
+                                {c.label}
+                            </a>
+                        ) : (
+                            <span style={{ color: '#111827', fontWeight: 600 }}>{c.label}</span>
+                        )}
+                    </li>
+                ))}
+            </ol>
+        </nav>
+    );
+}
 const formatPrice = (cents: number) => (cents / 100).toLocaleString(undefined, { style: 'currency', currency: 'USD' });
 
 export default function Cart(): ReactElement {
@@ -98,6 +133,7 @@ export default function Cart(): ReactElement {
                 fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial",
             }}
         >
+            <Breadcrumbs />
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 24 }}>
                 <h1 style={{ margin: 0 }}>Your Cart</h1>
                 <small style={{ color: '#666' }}>
