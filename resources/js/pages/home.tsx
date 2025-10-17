@@ -1,6 +1,16 @@
 // Update the import path below to the correct location of useIsMobile or create the hook if it doesn't exist
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
 import ProductList from '../components/ui/ProductList';
+// import Inertia client lazily to avoid type conflicts in some environments
+let Inertia: any;
+try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+    Inertia = require('@inertiajs/inertia');
+} catch (e) {
+    // fallback: will attempt to navigate via location if Inertia is unavailable
+    Inertia = null;
+}
+
 export default function Welcome() {
     return (
         <>
@@ -23,6 +33,9 @@ export default function Welcome() {
                             const count = Number(data?.count ?? (Array.isArray(data?.items) ? data.items.length : 0)) || 0;
                             if (badge) badge.textContent = String(count);
                             console.log('viewCart:', data);
+                            // navigate to the cart page (prefer Inertia, fallback to location)
+                            if (Inertia?.visit) Inertia.visit('/cart');
+                            else window.location.href = '/cart';
                         } catch (err) {
                             console.error(err);
                         }

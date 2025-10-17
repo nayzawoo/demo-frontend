@@ -63,7 +63,8 @@ const ProductList: React.FC = () => {
                         <div className="font-bold text-lg">${product.price}</div>
                     </CardContent>
                     <CardFooter>
-                        <Button variant="outline" size="icon" aria-label="Submit" onClick={() => handleAddToCard(product)}>
+                        <Button variant="outline" aria-label="Submit" onClick={() => handleAddToCard(product)}>
+                            Add to Cart
                             <PlusIcon />
                         </Button>
                     </CardFooter>

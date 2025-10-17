@@ -23,7 +23,27 @@ export interface User {
 interface Product {
     id: number;
     name: string;
-    description: string;
+    description?: string;
     price: number;
     picture?: string;
+    [key: string]: unknown;
 }
+
+export interface CartItem {
+    id?: number;
+    product?: Product;
+    product_id?: number;
+    name?: string;
+    quantity: number;
+    price?: number;
+    subtotal?: number;
+    [key: string]: unknown;
+}
+
+export interface Cart {
+    items: CartItem[];
+    count: number;
+    total: number;
+}
+
+export {};
