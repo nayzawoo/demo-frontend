@@ -20,13 +20,12 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
-interface Product {
+export interface Product {
     id: number;
-    name: string;
+    name?: string;
     description?: string;
-    price: number;
+    price?: number;
     picture?: string;
-    [key: string]: unknown;
 }
 
 export interface CartItem {
@@ -37,7 +36,6 @@ export interface CartItem {
     quantity: number;
     price?: number;
     subtotal?: number;
-    [key: string]: unknown;
 }
 
 export interface Cart {

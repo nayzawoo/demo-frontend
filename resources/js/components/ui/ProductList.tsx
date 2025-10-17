@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Product } from "@/types";
+import type { Product } from "@/types";
 import { Button } from "./button";
 import { PlusIcon } from "lucide-react";
 import axios from "axios";
