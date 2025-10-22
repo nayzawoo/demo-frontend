@@ -4,24 +4,20 @@ import type { Product } from "@/types";
 import { Button } from "./button";
 import { PlusIcon } from "lucide-react";
 import axios from "axios";
+import { useCart } from '../../stores/useCartStore';
 
 const ProductList: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
 
     const handleAddToCard = (product: Product) => {
-        axios
-            .post(
-                "http://demo.test/api/products/cart/add",
-                { product_id: product.id, quantity: 1 },
-                { headers: { "Content-Type": "application/json" } }
-            )
-            .then((res) => {
-                console.log("Product added to cart:", res.data);
-            })
-            .catch((error) => {
-                console.error("Error adding product to cart:", error);
-            });
+        useCart.getState().addCart({
+            id: product.id,
+            image: product.picture || "",
+            title: product.name || "Untitled",
+            price: product.price || 0,
+            quantity: 1,
+        });
     };
 
     useEffect(() => {
