@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
+import { Link } from '@inertiajs/react';
 import { ChevronRight, Home, Minus, Plus, Trash } from 'lucide-react';
 import { JSX } from 'react';
 import { useCart } from '../stores/useCartStore';
@@ -150,7 +151,9 @@ export default function CartPage(): JSX.Element {
                             </div>
                             <div className="flex flex-col gap-2">
                                 <Button disabled={cart.length === 0}>Proceed to Checkout</Button>
-                                <Button variant="ghost">Continue Shopping</Button>
+                                <Link href="/">
+                                    <Button variant="ghost">Continue Shopping</Button>
+                                </Link>
                             </div>
                         </div>
                     </Card>

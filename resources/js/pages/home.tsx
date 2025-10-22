@@ -23,7 +23,7 @@ export default function Home() {
     return (
         <>
             <NavigationMenu className="w-full">
-                <NavigationMenuList className="mx-auto flex w-full max-w-5xl flex-row justify-between bg-blue-200">
+                <NavigationMenuList className="mx-auto flex">
                     <NavigationMenuItem>
                         <NavigationMenuLink href="/" className="inline-flex items-center gap-2">
                             <svg
