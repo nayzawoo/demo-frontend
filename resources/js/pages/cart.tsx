@@ -150,7 +150,7 @@ export default function CartPage(): JSX.Element {
                                 <div className="text-2xl font-semibold">${getTotalPrice().toFixed(2)}</div>
                             </div>
                             <div className="flex flex-col gap-2">
-                                <Button disabled={cart.length === 0}>Proceed to Checkout</Button>
+                                <Button disabled={cart.length === 0}>Checkout</Button>
                                 <Link href="/">
                                     <Button variant="ghost">Continue Shopping</Button>
                                 </Link>
