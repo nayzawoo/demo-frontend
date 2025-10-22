@@ -5,6 +5,16 @@ import { Button } from "./button";
 import { PlusIcon } from "lucide-react";
 import axios from "axios";
 import { useCart } from '../../stores/useCartStore';
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogAction,
+    AlertDialogCancel,
+} from "@/components/ui/alert-dialog";
 
 const ProductList: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -18,6 +28,66 @@ const ProductList: React.FC = () => {
             price: product.price || 0,
             quantity: 1,
         });
+
+        // console.log("Added to cart:", product);
+        (async () => {
+            try {
+                const { createRoot } = await import("react-dom/client");
+
+
+                const container = document.createElement("div");
+                document.body.appendChild(container);
+                const root = createRoot(container);
+
+                const Dialog: React.FC = () => {
+                    const [open, setOpen] = React.useState(true);
+
+                    return (
+                        <AlertDialog
+                            open={open}
+                            onOpenChange={(v) => {
+                                setOpen(v);
+                                if (!v) {
+                                    // cleanup after close
+                                    setTimeout(() => {
+                                        try {
+                                            root.unmount();
+                                        } catch {}
+                                        container.remove();
+                                    }, 0);
+                                }
+                            }}
+                        >
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Added to cart</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        {product.name} has been added to your cart.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel onClick={() => setOpen(false)}>
+                                        Continue shopping
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                        onClick={() => {
+                                            // navigate to cart
+                                            window.location.href = "/cart";
+                                        }}
+                                    >
+                                        View cart
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    );
+                };
+
+                root.render(<Dialog />);
+            } catch (err) {
+                console.error("Failed to show alert dialog:", err);
+            }
+        })();
     };
 
     useEffect(() => {
@@ -39,7 +109,7 @@ const ProductList: React.FC = () => {
 
     function getVisiblePageCount() {
         const totalPages = Math.ceil(products.length / 10); // Assuming 10 products per page
-        return Math.min(totalPages, 5); // Show a maximum of 5 page numbers
+        return Math.min(totalPages, 10); // Show a maximum of 5 page numbers
     }
 
     return (
