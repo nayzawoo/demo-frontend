@@ -21,7 +21,6 @@ const ProductList: React.FC = () => {
     };
 
     useEffect(() => {
-        // Replace with your actual API endpoint
         fetch("http://demo.test/api/products")
             .then((res) => res.json())
             .then((data) => {
@@ -78,9 +77,7 @@ const ProductList: React.FC = () => {
                     setLoading(true);
                     try {
                         const res = await axios.get(`http://demo.test/api/products?page=${page}`);
-                        // adapt to your API shape (res.data.data vs res.data)
                         setProducts(res.data.data ?? res.data);
-                        // update the URL so refresh/bookmarks keep the page
                         const url = new URL(window.location.href);
                         url.searchParams.set("page", String(page));
                         window.history.pushState({}, "", url.toString());
@@ -92,7 +89,6 @@ const ProductList: React.FC = () => {
                 };
 
                 const currentPage = getCurrentPage();
-                // simple window-based windowing: show current ±2 pages
                 const visibleCount = 5;
                 const start = Math.max(1, currentPage - Math.floor(visibleCount / 2));
                 const pages = Array.from({ length: visibleCount }, (_, i) => start + i);
