@@ -4,21 +4,12 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Link } from '@inertiajs/react';
-import { ChevronRight, Home, Minus, Plus, Trash } from 'lucide-react';
+import { ChevronRight, Home, Minus, Plus, ShoppingCart, Trash } from 'lucide-react';
 import { JSX } from 'react';
 import { useCart } from '../stores/useCartStore';
 
-const Icons = {
-    home: Home,
-    chevronRight: ChevronRight,
-    trash: Trash,
-    minus: Minus,
-    plus: Plus,
-};
-
 export default function CartPage(): JSX.Element {
     const cart = useCart((state) => state.cart);
-    const addCart = useCart((state) => state.addCart);
     const getTotalPrice = useCart((state) => state.getTotalPrice);
     const removeCart = useCart((state) => state.removeCart);
     const clearCart = useCart((state) => state.clearCart);
@@ -31,10 +22,11 @@ export default function CartPage(): JSX.Element {
             <nav className="mb-6 flex items-center text-sm text-muted-foreground" aria-label="Breadcrumb">
                 <a href="/" className="inline-flex items-center hover:underline">
                     <span className="sr-only">Home</span>
-                    <Icons.home className="mr-2 h-4 w-4" />
+                    <Home className="mr-2 h-4 w-4" />
                     Home
                 </a>
-                <Icons.chevronRight className="mx-3 h-4 w-4" />
+                <ChevronRight className="mx-3 h-4 w-4" />
+                <ShoppingCart className="mr-2 h-4 w-4" />
                 <span className="font-medium">Cart</span>
             </nav>
 
@@ -46,7 +38,7 @@ export default function CartPage(): JSX.Element {
                         <div className="flex items-center gap-3">
                             <Badge variant="secondary">{cart.length} items</Badge>
                             <Button variant="ghost" size="sm" onClick={clearCart} disabled={cart.length === 0}>
-                                <Icons.trash className="mr-2 h-4 w-4" />
+                                <Trash className="mr-2 h-4 w-4" />
                                 Clear
                             </Button>
                         </div>
@@ -87,7 +79,7 @@ export default function CartPage(): JSX.Element {
                                                     className="px-2"
                                                     onClick={() => updateQty(item.id, item.quantity - 1)}
                                                 >
-                                                    <Icons.minus className="h-4 w-4" />
+                                                    <Minus className="h-4 w-4" />
                                                 </Button>
                                                 <Input
                                                     className="w-16 border-0 text-center"
@@ -103,12 +95,12 @@ export default function CartPage(): JSX.Element {
                                                     className="px-2"
                                                     onClick={() => updateQty(item.id, item.quantity + 1)}
                                                 >
-                                                    <Icons.plus className="h-4 w-4" />
+                                                    <Plus className="h-4 w-4" />
                                                 </Button>
                                             </div>
 
                                             <Button variant="ghost" size="sm" onClick={() => removeCart(item.id)} className="text-destructive">
-                                                <Icons.trash className="mr-2 h-4 w-4" />
+                                                <Trash className="mr-2 h-4 w-4" />
                                                 Remove
                                             </Button>
                                         </div>
