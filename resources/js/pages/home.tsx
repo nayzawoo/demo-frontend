@@ -13,7 +13,7 @@ export default function Home() {
     const cart = useCart((state) => state.cart);
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-    console.log(cart);
+    // console.log(cart);
 
     return (
         <>

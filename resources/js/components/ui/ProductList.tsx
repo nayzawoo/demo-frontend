@@ -25,7 +25,7 @@ const ProductList: React.FC = () => {
             .then((res) => res.json())
             .then((data) => {
                 setProducts(data.data);
-                console.log("Fetched products:", data.data);
+                // console.log("Fetched products:", data.data);
             })
             .catch((error) => {
                 console.error("Error fetching products:", error);
@@ -35,6 +35,11 @@ const ProductList: React.FC = () => {
 
     if (loading) {
         return <div>Loading products...</div>;
+    }
+
+    function getVisiblePageCount() {
+        const totalPages = Math.ceil(products.length / 10); // Assuming 10 products per page
+        return Math.min(totalPages, 5); // Show a maximum of 5 page numbers
     }
 
     return (
@@ -89,7 +94,7 @@ const ProductList: React.FC = () => {
                 };
 
                 const currentPage = getCurrentPage();
-                const visibleCount = 5;
+                const visibleCount = getVisiblePageCount();
                 const start = Math.max(1, currentPage - Math.floor(visibleCount / 2));
                 const pages = Array.from({ length: visibleCount }, (_, i) => start + i);
 
